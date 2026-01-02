@@ -5,8 +5,8 @@
 White spaces inside snippet markers are not supported!
 
 ```kotlin
-// begin-snippet: PlatformContextProvider::init
-PlatformContextProvider.init(this)
+// begin-snippet: NAME
+some code here
 // end-snippet
 ```
 
