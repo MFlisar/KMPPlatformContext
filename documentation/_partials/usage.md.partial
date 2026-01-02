@@ -2,13 +2,13 @@ This library is used like following:
 
 On all platforms but android, you only need to add the `core` module to your dependencies and you are done
 
-On android you have to options:
+On android you have 2 options:
 
-### Options 1
+### Option 1
 
 Add the `initializer` module to your dependencies and you are done
 
-### Options 2
+### Option 2
 
 Manually initialize the library inside your `Application` class like following:
 
@@ -35,6 +35,5 @@ actual fun doSomething() {
     // on android use this, on other platforms this is just a no-op
     val platformContext = PlatformContext.current()
 }
-
 
 ```
