@@ -1,11 +1,12 @@
 # Github Library
-github-library:
+github:
   name: KMPPlatformContext
   release: 2025
   namespace: com.michaelflisar.kmp.platformcontext
   license:
     name: Apache License 2.0
     path: blob/main/LICENSE
+  other-libraries: https://github.com/MFlisar/MyLibraries
 
 # Maven
 maven:
