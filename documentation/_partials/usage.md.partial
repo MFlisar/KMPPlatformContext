@@ -1,13 +1,40 @@
 This library is used like following:
 
-- on android do following:
+On all platforms but android, you only need to add the `core` module to your dependencies and you are done
 
-  - add the `initializer` module to your dependencies
-  - or do following manually inside your `Application` class:
+On android you have to options:
 
-    <!-- snippet: PlatformContextProvider -->
-    <!-- PlatformContextProvider -->
+### Options 1
 
-- on all other platforms do nothing special
+Add the `initializer` module to your dependencies and you are done
 
-Afterwards you have access to the `PlatformContextProvider.get()` and `PlatformIOContext()` everywhere in your code.
+### Options 2
+
+Manually initialize the library inside your `Application` class like following:
+
+<!-- snippet: PlatformContextProvider -->
+<!-- PlatformContextProvider -->
+
+Afterwards you have access to the `PlatformContext`, `PlatformContextProvider.get()` and `PlatformIOContext()` everywhere in your code like following:
+
+```kotlin
+
+// imports
+import com.michaelflisar.kmp.platformcontext.PlatformContext
+import com.michaelflisar.kmp.platformcontext.PlatformContextProvider
+import com.michaelflisar.kmp.platformcontext.PlatformIOContext
+
+// usage
+val platformContext = PlatformContextProvider.get()
+val ioContext = PlatformIOContext()
+
+// or use the PlatformContext class for functions (no need for the widely used doSomething(context: Any?) pattern)
+expect fun doSomething()
+
+actual fun doSomething() {
+    // on android use this, on other platforms this is just a no-op
+    val platformContext = PlatformContext.current()
+}
+
+
+```

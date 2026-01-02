@@ -24,7 +24,6 @@ import com.michaelflisar.kmp.platformcontext.PlatformContextProvider
 import com.michaelflisar.kmp.platformcontext.PlatformIOContext
 import com.michaelflisar.kmp.platformcontext.shared.resources.Res
 import com.michaelflisar.kmp.platformcontext.shared.resources.app_name
-import kotlinx.coroutines.CoroutineDispatcher
 import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
