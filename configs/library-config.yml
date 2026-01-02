@@ -11,7 +11,7 @@ github:
 # Maven
 maven:
   group-id: io.github.mflisar.kmpplatformcontext
-  primary-artifact-id: library # used to detect latest release version of the library (dynamically on the published homepage)
+  primary-artifact-id: core # used to detect latest release version of the library (dynamically on the published homepage)
 
 # Modules - list of modules [name, artifact-id, description, path, exclude-from-docs (optional)]
 modules:
