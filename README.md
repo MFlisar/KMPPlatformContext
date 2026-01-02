@@ -91,6 +91,12 @@ Add the `initializer` module to your dependencies and you are done
 Manually initialize the library inside your `Application` class like following:
 
 <!-- snippet: PlatformContextProvider::init -->
+```kt
+PlatformContextProvider.init(this)
+```
+```txt
+PlatformContextProvider.init(this)
+```
 <!-- endSnippet -->
 
 Afterwards you have access to the `PlatformContext`, `PlatformContextProvider.get()` and `PlatformIOContext()` everywhere in your code like following:
