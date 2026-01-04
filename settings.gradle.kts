@@ -62,6 +62,9 @@ includeModule("library/initializer", ":$libraryId:initializer")
 // Modules
 // --
 
+// Dokka
+include(":dokka")
+
 // --------------
 // App
 // --------------
