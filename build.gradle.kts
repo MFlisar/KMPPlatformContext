@@ -10,7 +10,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.gradle.maven.publish.plugin) apply false
     alias(libs.plugins.buildkonfig) apply false
-    alias(deps.plugins.kmplibrary.buildplugin) apply false
+    alias(deps.plugins.kmpdevtools.buildplugin) apply false
 }
 
 // exclude all demo projects from CI builds

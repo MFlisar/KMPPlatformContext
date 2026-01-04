@@ -1,11 +1,12 @@
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type
-import com.michaelflisar.kmplibrary.BuildFileUtil
-import com.michaelflisar.kmplibrary.Targets
-import com.michaelflisar.kmplibrary.core.configs.Config
-import com.michaelflisar.kmplibrary.core.configs.LibraryConfig
-import com.michaelflisar.kmplibrary.setupWindowsApp
-import com.michaelflisar.kmplibrary.setups.DesktopAppSetup
-import com.michaelflisar.kmplibrary.setups.WasmAppSetup
+import com.michaelflisar.kmpdevtools.BuildFileUtil
+import com.michaelflisar.kmpdevtools.Targets
+import com.michaelflisar.kmpdevtools.config.AppModuleData
+import com.michaelflisar.kmpdevtools.config.sub.AndroidAppConfig
+import com.michaelflisar.kmpdevtools.config.sub.DesktopAppConfig
+import com.michaelflisar.kmpdevtools.config.sub.WasmAppConfig
+import com.michaelflisar.kmpdevtools.core.configs.Config
+import com.michaelflisar.kmpdevtools.core.configs.LibraryConfig
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -14,7 +15,7 @@ plugins {
     alias(libs.plugins.compose)
     alias(libs.plugins.compose.hotreload)
     alias(libs.plugins.buildkonfig)
-    alias(deps.plugins.kmplibrary.buildplugin)
+    alias(deps.plugins.kmpdevtools.buildplugin)
 }
 
 // ------------------------
@@ -23,11 +24,6 @@ plugins {
 
 val config = Config.read(rootProject)
 val libraryConfig = LibraryConfig.read(rootProject)
-
-val appName = "${libraryConfig.library.name} Demo"
-val appNamespace = "com.michaelflisar.demo"
-val appVersionName = "1.0.0"
-val appVersionCode = 1
 
 val buildTargets = Targets(
     // mobile
@@ -39,16 +35,33 @@ val buildTargets = Targets(
     // web
     wasm = true
 )
-val desktopSetup = DesktopAppSetup(
-    appName = appName,
-    appVersionName = appVersionName,
-    mainClass = "$appNamespace.MainKt",
-    author = config.developer.name,
+
+val androidConfig = AndroidAppConfig(
+    compileSdk = app.versions.compileSdk,
+    minSdk = app.versions.minSdk,
+    targetSdk = app.versions.targetSdk
+)
+
+val desktopConfig = DesktopAppConfig(
+    mainClass = "com.michaelflisar.demo.MainKt",
     ico = "icon.ico"
 )
-val wasmSetup = WasmAppSetup(
+
+val wasmConfig = WasmAppConfig(
     moduleName = "demo",
     outputFileName = "demo.js"
+)
+
+val appModuleData = AppModuleData(
+    project = project,
+    config = config,
+    appName = "${libraryConfig.library.name} Demo",
+    namespace = "com.michaelflisar.demo",
+    versionName = "1.0.0",
+    versionCode = 1,
+    androidConfig = androidConfig,
+    desktopConfig = desktopConfig,
+    wasmConfig = wasmConfig
 )
 
 // ------------------------
@@ -56,12 +69,12 @@ val wasmSetup = WasmAppSetup(
 // ------------------------
 
 buildkonfig {
-    packageName = appNamespace
+    packageName = appModuleData.namespace
     defaultConfigs {
-        buildConfigField(Type.STRING, "versionName", appVersionName)
-        buildConfigField(Type.INT, "versionCode", appVersionCode.toString())
-        buildConfigField(Type.STRING, "packageName", appNamespace)
-        buildConfigField(Type.STRING, "appName", appName)
+        buildConfigField(Type.STRING, "versionName", appModuleData.versionName)
+        buildConfigField(Type.INT, "versionCode", appModuleData.versionCode.toString())
+        buildConfigField(Type.STRING, "packageName", appModuleData.namespace)
+        buildConfigField(Type.STRING, "appName", appModuleData.appName)
     }
 }
 
@@ -71,7 +84,7 @@ kotlin {
     // Targets
     //-------------
 
-    buildTargets.setupTargetsApp(project, config, wasmSetup)
+    buildTargets.setupTargetsApp(appModuleData)
 
     // ------------------------
     // Source Sets
@@ -123,40 +136,20 @@ kotlin {
 android {
 
     BuildFileUtil.setupAndroidApp(
-        project = project,
-        config = config,
-        androidNamespace = appNamespace,
-        compileSdk = app.versions.compileSdk,
-        minSdk = app.versions.minSdk,
-        targetSdk = app.versions.targetSdk,
-        versionCode = appVersionCode,
-        versionName = appVersionName,
+        appModuleData = appModuleData,
         buildConfig = true,
-        checkDebugKeyStoreProperty = true
+        generateResAppName = true,
+        checkDebugKeyStoreProperty = true,
+        setupBuildTypesDebugAndRelease = true
     )
-
-    buildTypes {
-        release {
-            isMinifyEnabled = true
-            isShrinkResources = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        }
-        debug {
-            isMinifyEnabled = false
-            isShrinkResources = false
-            applicationIdSuffix = ".debug"
-        }
-    }
 }
 
 // windows configuration
 compose.desktop {
     application {
-
-        // BuildFilePlugin Extension
-        setupWindowsApp(
-            project = project,
-            setup = desktopSetup
+        BuildFileUtil.setupWindowsApp(
+            application = this,
+            appModuleData = appModuleData
         )
     }
 }

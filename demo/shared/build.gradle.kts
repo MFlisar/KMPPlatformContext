@@ -1,7 +1,8 @@
-import com.michaelflisar.kmplibrary.Targets
-import com.michaelflisar.kmplibrary.core.configs.Config
-import com.michaelflisar.kmplibrary.core.configs.LibraryConfig
-import com.michaelflisar.kmplibrary.setups.AndroidLibrarySetup
+import com.michaelflisar.kmpdevtools.Targets
+import com.michaelflisar.kmpdevtools.config.LibraryModuleData
+import com.michaelflisar.kmpdevtools.config.sub.AndroidLibraryConfig
+import com.michaelflisar.kmpdevtools.core.configs.Config
+import com.michaelflisar.kmpdevtools.core.configs.LibraryConfig
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -9,12 +10,15 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.compose)
     alias(libs.plugins.compose.hotreload)
-    alias(deps.plugins.kmplibrary.buildplugin)
+    alias(deps.plugins.kmpdevtools.buildplugin)
 }
 
 // ------------------------
 // Setup
 // ------------------------
+
+val config = Config.read(rootProject)
+val libraryConfig = LibraryConfig.read(rootProject)
 
 val buildTargets = Targets(
     // mobile
@@ -26,18 +30,22 @@ val buildTargets = Targets(
     // web
     wasm = true
 )
-val androidSetup = AndroidLibrarySetup(
+val androidConfig = AndroidLibraryConfig(
     compileSdk = app.versions.compileSdk,
     minSdk = app.versions.minSdk,
     enableAndroidResources = true
 )
 
-val config = Config.read(rootProject)
-val libraryConfig = LibraryConfig.read(rootProject)
+val libraryModuleData = LibraryModuleData(
+    project = project,
+    config = config,
+    libraryConfig = libraryConfig,
+    androidConfig = androidConfig
+)
 
-// -------------------
-// Setup
-// -------------------
+// ------------------------
+// Kotlin
+// ------------------------
 
 compose.resources {
     packageOfResClass = "${libraryConfig.library.namespace}.shared.resources"
@@ -50,7 +58,7 @@ kotlin {
     // Targets
     //-------------
 
-    buildTargets.setupTargetsLibrary(project, config, libraryConfig, androidSetup)
+    buildTargets.setupTargetsLibrary(libraryModuleData)
 
     // ------------------------
     // Source Sets
@@ -82,7 +90,7 @@ kotlin {
             //implementation(libs.compose.material.icons.extended)
 
             // demo ui composables
-            implementation(deps.kmp.democomposables)
+            implementation(deps.democomposables)
 
             // ------------------------
             // Library
