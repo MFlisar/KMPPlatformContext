@@ -63,5 +63,3 @@ desugar =			        	    { module = "com.android.tools:desugar_jdk_libs", 	     
 androidx-core =                     { module = "androidx.core:core-ktx",                                    version.ref = "activityx-core" }
 androidx-activity-compose =         { module = "androidx.activity:activity-compose",                        version.ref = "activityx-activity" }
 androidx-startup =                  { module = "androidx.startup:startup-runtime",                          version.ref = "activityx-startup" }
-
-
