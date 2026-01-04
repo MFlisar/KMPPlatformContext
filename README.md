@@ -16,9 +16,10 @@ Additionally the `initializer` module allows you to initialize the `PlatformCont
 
 - [Supported Platforms](#computer-supported-platforms)
 - [Setup](#wrench-setup)
-- [Usage](#page_facing_up-usage)
+- [Usage](#rocket-usage)
 - [Demo](#sparkles-demo)
 - [Other Libraries](#bulb-other-libraries)
+- [API Documentation](#books-api-documentation)
 
 # :computer: Supported Platforms
 
@@ -74,7 +75,7 @@ implementation(libs.initializer)
 
 </details>
 
-# :page_facing_up: Usage
+# :rocket: Usage
 
 This library is used like following:
 
@@ -122,6 +123,10 @@ actual fun doSomething() {
 # :sparkles: Demo
 
 A full [demo](/demo) is included inside the demo module, it shows nearly every usage with working examples.
+
+# :books: API Documentation
+
+Check out the [API documentation](https://MFlisar.github.io/KMPPlatformContext/).
 
 # :bulb: Other Libraries
 
