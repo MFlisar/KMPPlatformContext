@@ -81,7 +81,7 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.androidx.core)
-            implementation(libs.androidx.startup)
+            implementation(libs.androidx.startup.runtime)
         }
     }
 }
