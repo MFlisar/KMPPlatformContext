@@ -72,7 +72,7 @@ buildkonfig {
         buildConfigField(Type.STRING, "versionName", appConfig.versionName)
         buildConfigField(Type.INT, "versionCode", appConfig.versionCode.toString())
         buildConfigField(Type.STRING, "packageName", appConfig.packageName)
-        buildConfigField(Type.STRING, "appName", appConfig.appName)
+        buildConfigField(Type.STRING, "appName", appConfig.name)
     }
 }
 
