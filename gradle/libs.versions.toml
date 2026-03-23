@@ -1,11 +1,11 @@
 [versions]
 
-gradle = 				            "8.13.2"
-kotlin = 				            "2.3.0"
+gradle = 				            "9.1.0"
+kotlin = 				            "2.3.20"
 
 # github release (dokka + maven + binary compatibility)
 dokka =                             "2.1.0"
-vanniktech-maven-publish =          "0.35.0"
+vanniktech-maven-publish =          "0.36.0"
 binary-compatibility-validator =    "0.18.1"
 
 # org.jetbrains.compose

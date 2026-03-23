@@ -7,6 +7,7 @@ import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.michaelflisar.kmp.platformcontext.demo.DemoApp
+import com.michaelflisar.kmpplatformcontext.demo.BuildKonfig
 
 fun main() {
 
