@@ -31,7 +31,7 @@ plugins {
 
 val config = Config.read(rootProject)
 val libraryConfig = LibraryConfig.read(rootProject)
-val appConfig = AppConfig.read(gradle.extra)
+val appConfig = AppConfig.read(rootProject)
 
 val buildTargets = Targets(
     // mobile
