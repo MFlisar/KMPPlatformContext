@@ -106,7 +106,7 @@ PlatformContextProvider.init(this)
 ```
 <!-- endSnippet -->
 
-Afterwards you have access to the `PlatformContext`, `PlatformContextProvider.get()` and `PlatformIOContext()` everywhere in your code like following:
+Afterwards you have access to the `PlatformContext`, `PlatformContextProvider.get()` and `Dispatchers.PlatformIO` everywhere in your code like following:
 
 ```kotlin
 
@@ -116,8 +116,8 @@ import com.michaelflisar.kmp.platformcontext.PlatformContextProvider
 import com.michaelflisar.kmp.platformcontext.PlatformIOContext
 
 // usage
-val platformContext = PlatformContextProvider.get()
-val ioContext = Dispatchers.PlatformIO
+val platformContext = PlatformContextProvider.get() // application context on android, empty context instance on all other platforms
+val ioContext = Dispatchers.PlatformIO // Dispatchers.IO on all platforms but WASM where it provides Dispatchers.Default
 
 // or use the PlatformContext class for functions (no need for the widely used doSomething(context: Any?) pattern)
 expect fun doSomething()
