@@ -15,4 +15,7 @@ object PlatformContextProvider {
         return context ?: throw IllegalStateException("PlatformContext not initialized. Either add the `initializer` module to the android project or initialise the context via PlatformContextProvider.init(context) inside your android application first.")
 
     }
+
 }
+
+expect fun PlatformContextProvider.getDefaultPlatformContext(): PlatformContext?
