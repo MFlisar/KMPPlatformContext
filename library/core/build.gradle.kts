@@ -44,9 +44,7 @@ val buildTargets = Targets(
 val androidConfig = AndroidLibraryConfig.create(
     compileSdk = app.versions.compileSdk,
     minSdk = app.versions.minSdk,
-    enableAndroidResources = false,
-    project = project,
-    libraryConfig = libraryConfig
+    enableAndroidResources = false
 )
 
 // ------------------------
@@ -81,20 +79,8 @@ kotlin {
         val notAndroidMain by creating { dependsOn(commonMain.get()) }
         val notWasmMain by creating { dependsOn(commonMain.get()) }
 
-        buildTargets.setupDependencies(
-            notAndroidMain,
-            sourceSets,
-            buildTargets,
-            listOf(Platform.ANDROID),
-            platformsNotSupported = true
-        )
-        buildTargets.setupDependencies(
-            notWasmMain,
-            sourceSets,
-            buildTargets,
-            listOf(Platform.WASM),
-            platformsNotSupported = true
-        )
+        buildTargets.setupDependencies(notAndroidMain, sourceSets, listOf(Platform.ANDROID), platformsNotSupported = true)
+        buildTargets.setupDependencies(notWasmMain, sourceSets, listOf(Platform.WASM), platformsNotSupported = true)
 
         // ---------------------
         // dependencies
