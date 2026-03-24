@@ -127,6 +127,9 @@ actual fun doSomething() {
     val platformContext = PlatformContext.current()
 }
 
+// also, if needed, you can always get the default context
+val context = PlatformContextProvider.getDefaultPlatformContext() // android application context or null on other platforms
+
 ```
 
 # :sparkles: Demo
