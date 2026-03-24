@@ -37,6 +37,8 @@ actual fun doSomething() {
 }
 
 // also, if needed, you can always get the default context
-val context = PlatformContextProvider.getDefaultPlatformContext() // android application context or null on other platforms
+// on android: return null
+// all other platforms: return an empty context of type PlatformContextEmpty
+val context = PlatformContextProvider.getDefaultPlatformContext()
 
 ```
