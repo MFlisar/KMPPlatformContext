@@ -5,9 +5,8 @@ import androidx.startup.Initializer
 
 class PlatformContextInitializer : Initializer<Unit> {
 
-    override fun create(context: Context): Unit {
+    override fun create(context: Context) {
         PlatformContextProvider.init(context.applicationContext)
-        return Unit
     }
 
     override fun dependencies(): List<Class<out Initializer<*>>> {
