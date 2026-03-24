@@ -8,7 +8,7 @@ It provides the following main features:
 
 - a `PlatformContext` class that maps to `android.content.Context` on Android and to an empty implementation on all other platforms
 - a `PlatformContextProvider` that allows you to set and get the current `PlatformContext` instance
-- a `PlatformIOContext()` function that will provide `Dispatchers.IO` on all platforms but WASM where it provides `Dispatchers.Default`
+- a `Dispatchers.PlatformIO` extension that will provide `Dispatchers.IO` on all platforms but WASM where it provides `Dispatchers.Default`
 
 Additionally the `initializer` module allows you to initialize the `PlatformContext` on Android with the application context automatically via `androidx.startup.Initializer`.
 
@@ -117,7 +117,7 @@ import com.michaelflisar.kmp.platformcontext.PlatformIOContext
 
 // usage
 val platformContext = PlatformContextProvider.get()
-val ioContext = PlatformIOContext()
+val ioContext = Dispatchers.PlatformIO
 
 // or use the PlatformContext class for functions (no need for the widely used doSomething(context: Any?) pattern)
 expect fun doSomething()
