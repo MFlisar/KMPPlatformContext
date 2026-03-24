@@ -26,7 +26,7 @@ import com.michaelflisar.kmp.platformcontext.PlatformIOContext
 
 // usage
 val platformContext = PlatformContextProvider.get()
-val ioContext = PlatformIOContext()
+val ioContext = Dispatchers.PlatformIO
 
 // or use the PlatformContext class for functions (no need for the widely used doSomething(context: Any?) pattern)
 expect fun doSomething()

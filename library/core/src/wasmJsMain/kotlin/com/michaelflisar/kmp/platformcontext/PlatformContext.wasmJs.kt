@@ -4,4 +4,5 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
 // In WASM, there is no separate IO dispatcher, so we use Main
-actual fun PlatformIOContext(): CoroutineDispatcher = Dispatchers.Main
+actual val Dispatchers.PlatformIO: CoroutineDispatcher
+    get() = Dispatchers.Main
