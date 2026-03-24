@@ -15,6 +15,7 @@ Additionally the `initializer` module allows you to initialize the `PlatformCont
 # Table of Contents
 
 - [Supported Platforms](#computer-supported-platforms)
+- [Versions](#arrow_right-versions)
 - [Setup](#wrench-setup)
 - [Usage](#rocket-usage)
 - [Demo](#sparkles-demo)
@@ -27,6 +28,14 @@ Additionally the `initializer` module allows you to initialize the `PlatformCont
 |---|---|---|---|---|---|
 | core | ✅ | ✅ | ✅ | ✅ | ✅ |
 | initializer | ✅ | ❌ | ❌ | ❌ | ❌ |
+
+# :arrow_right: Versions
+
+| Dependency | Version |
+|---|---|
+| Kotlin | `2.3.20` |
+| Jetbrains Compose | `1.9.3` |
+| Jetbrains Compose Material3 | `1.9.0` |
 
 # :wrench: Setup
 
@@ -45,15 +54,15 @@ kmpplatformcontext = "<LATEST-VERSION>"
 
 [libraries]
 
-core = { module = "io.github.mflisar.kmpplatformcontext:core", version.ref = "kmpplatformcontext" }
-initializer = { module = "io.github.mflisar.kmpplatformcontext:initializer", version.ref = "kmpplatformcontext" }
+kmpplatformcontext-core = { module = "io.github.mflisar.kmpplatformcontext:core", version.ref = "kmpplatformcontext" }
+kmpplatformcontext-initializer = { module = "io.github.mflisar.kmpplatformcontext:initializer", version.ref = "kmpplatformcontext" }
 ```
 
 And then use the definitions in your projects **build.gradle.kts** file like following:
 
 ```java
-implementation(libs.core)
-implementation(libs.initializer)
+implementation(libs.kmpplatformcontext.core)
+implementation(libs.kmpplatformcontext.initializer)
 ```
 
 </details>
