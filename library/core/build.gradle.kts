@@ -1,9 +1,9 @@
 import com.michaelflisar.kmpdevtools.BuildFileUtil
 import com.michaelflisar.kmpdevtools.Targets
 import com.michaelflisar.kmpdevtools.configs.library.AndroidLibraryConfig
+import com.michaelflisar.kmpdevtools.configs.module.LibraryModuleConfig
 import com.michaelflisar.kmpdevtools.core.Platform
-import com.michaelflisar.kmpdevtools.core.configs.Config
-import com.michaelflisar.kmpdevtools.core.configs.LibraryConfig
+import com.michaelflisar.kmpdevtools.setupDependencies
 
 plugins {
     // kmp + app/library
@@ -27,8 +27,7 @@ plugins {
 // Setup
 // ------------------------
 
-val config = Config.read(rootProject)
-val libraryConfig = LibraryConfig.read(rootProject)
+val module = LibraryModuleConfig.read(project)
 
 val buildTargets = Targets(
     // mobile
@@ -42,6 +41,7 @@ val buildTargets = Targets(
 )
 
 val androidConfig = AndroidLibraryConfig.create(
+    libraryModuleConfig = module,
     compileSdk = app.versions.compileSdk,
     minSdk = app.versions.minSdk,
     enableAndroidResources = false
@@ -61,9 +61,9 @@ kotlin {
     // Targets
     //-------------
 
-    buildTargets.setupTargetsLibrary(project)
+    buildTargets.setupTargetsLibrary(module)
     android {
-        buildTargets.setupTargetsAndroidLibrary(project, config, libraryConfig, androidConfig, this)
+        buildTargets.setupTargetsAndroidLibrary(module, androidConfig, this)
     }
 
     // -------
@@ -79,8 +79,12 @@ kotlin {
         val notAndroidMain by creating { dependsOn(commonMain.get()) }
         val notWasmMain by creating { dependsOn(commonMain.get()) }
 
-        buildTargets.setupDependencies(notAndroidMain, sourceSets, listOf(Platform.ANDROID), platformsNotSupported = true)
-        buildTargets.setupDependencies(notWasmMain, sourceSets, listOf(Platform.WASM), platformsNotSupported = true)
+        setupDependencies(buildTargets, sourceSets) {
+
+            notAndroidMain supportedBy !Platform.ANDROID
+            notWasmMain supportedBy !Platform.WASM
+
+        }
 
         // ---------------------
         // dependencies
@@ -102,4 +106,4 @@ kotlin {
 
 // maven publish configuration
 if (BuildFileUtil.checkGradleProperty(project, "publishToMaven") != false)
-    BuildFileUtil.setupMavenPublish(project, config, libraryConfig)
+    BuildFileUtil.setupMavenPublish(module)

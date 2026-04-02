@@ -2,7 +2,6 @@
 github:
   name: KMPPlatformContext
   release: 2025
-  namespace: com.michaelflisar.kmp.platformcontext
   license:
     name: Apache License 2.0
     path: blob/main/LICENSE

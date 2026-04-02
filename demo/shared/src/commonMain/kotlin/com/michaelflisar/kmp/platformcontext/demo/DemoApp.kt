@@ -22,10 +22,8 @@ import com.michaelflisar.democomposables.layout.DemoRegion
 import com.michaelflisar.democomposables.layout.rememberDemoExpandedRegions
 import com.michaelflisar.kmp.platformcontext.PlatformContextProvider
 import com.michaelflisar.kmp.platformcontext.PlatformIO
-import com.michaelflisar.kmp.platformcontext.shared.resources.Res
-import com.michaelflisar.kmp.platformcontext.shared.resources.app_name
+import com.michaelflisar.kmpplatformcontext.demo.BuildKonfig
 import kotlinx.coroutines.Dispatchers
-import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,7 +35,7 @@ fun DemoApp(
         val snackbarHostState = remember { SnackbarHostState() }
         Scaffold(
             topBar = {
-                val appName = stringResource(Res.string.app_name)
+                val appName = BuildKonfig.appName
                 TopAppBar(
                     title = { Text(appName) },
                     modifier = Modifier.fillMaxWidth(),
