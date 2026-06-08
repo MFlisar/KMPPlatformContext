@@ -1,9 +1,9 @@
-import com.codingfeline.buildkonfig.compiler.FieldSpec.Type
 import com.michaelflisar.kmpdevtools.Targets
-import com.michaelflisar.kmpdevtools.configs.library.AndroidLibraryConfig
+import com.michaelflisar.kmpdevtools.BuildFileUtil
 import com.michaelflisar.kmpdevtools.core.Platform
-import com.michaelflisar.kmpdevtools.configs.module.LibraryModuleConfig
+import com.michaelflisar.kmpdevtools.configs.*
 import com.michaelflisar.kmpdevtools.setupDependencies
+import com.michaelflisar.kmpdevtools.setupBuildKonfig
 
 plugins {
     // kmp + app/library
@@ -16,7 +16,7 @@ plugins {
     // docs, publishing, validation
     // --
     // build tools
-    alias(deps.plugins.kmpdevtools.buildplugin)
+    alias(mflisar.plugins.kmpdevtools.buildplugin)
     alias(libs.plugins.buildkonfig)
     // others
     // ...
@@ -50,14 +50,7 @@ val androidConfig = AndroidLibraryConfig.createFromPath(
 // ------------------------
 
 buildkonfig {
-    packageName = module.appConfig.namespace
-    exposeObjectWithName = "BuildKonfig"
-    defaultConfigs {
-        buildConfigField(Type.STRING, "versionName", module.appConfig.versionName)
-        buildConfigField(Type.INT, "versionCode", module.appConfig.versionCode.toString())
-        buildConfigField(Type.STRING, "namespace", module.appConfig.namespace)
-        buildConfigField(Type.STRING, "appName", module.appConfig.name)
-    }
+    setupBuildKonfig(module.appConfig)
 }
 
 compose.resources {
@@ -94,8 +87,8 @@ kotlin {
 
         commonMain.dependencies {
 
-            // resources
-            api(compose.components.resources)
+            // Compose + AndroidX
+            api(libs.jetbrains.compose.components.resources)
 
             // Kotlin
             // ..
@@ -106,7 +99,7 @@ kotlin {
             //implementation(libs.compose.material.icons.extended)
 
             // demo ui composables
-            implementation(deps.democomposables)
+            implementation(mflisar.democomposables)
 
             // ------------------------
             // Library

@@ -1,15 +1,11 @@
 [versions]
 
-# mflisar (local snapshot: "LOCAL-SNAPSHOT")
-kmpdevtools =               "7.6.0" # change via "updateDevToolsVersion" gradle task!
-democomposables =           "1.0.2"
+# --
 
 [plugins]
 
-# mflisar
-kmpdevtools-buildplugin =               { id = "io.github.mflisar.kmpdevtools.plugins-build-gradle",    version.ref = "kmpdevtools" }
+# --
 
 [libraries]
 
-# mflisar
-democomposables =                       { module = "io.github.mflisar.democomposables:library",         version.ref = "democomposables" }
+# --

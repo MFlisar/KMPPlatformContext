@@ -20,10 +20,9 @@ import com.michaelflisar.democomposables.layout.DemoCollapsibleRegion
 import com.michaelflisar.democomposables.layout.DemoColumn
 import com.michaelflisar.democomposables.layout.DemoRegion
 import com.michaelflisar.democomposables.layout.rememberDemoExpandedRegions
-import com.michaelflisar.kmp.platformcontext.PlatformContextProvider
-import com.michaelflisar.kmp.platformcontext.PlatformIO
+import com.michaelflisar.kmp.platformcontext.platformContext
+import com.michaelflisar.kmp.platformcontext.platformIO
 import com.michaelflisar.kmpplatformcontext.demo.BuildKonfig
-import kotlinx.coroutines.Dispatchers
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -65,7 +64,8 @@ private fun DemoContent(
     val scope = rememberCoroutineScope()
     val regionState = rememberDemoExpandedRegions(ids = listOf(1, 2))
 
-    val context = PlatformContextProvider.get()
+    val context = platformContext
+    val ioDispatcher = platformIO
 
     DemoColumn(
         modifier = modifier.padding(all = 16.dp)
@@ -74,8 +74,8 @@ private fun DemoContent(
         DemoCollapsibleRegion(
             title = "Demos", regionId = 1, state = regionState
         ) {
-            Text("PlatformContext::simpleName = " + context::class.simpleName)
-            Text("Dispatchers.PlatformIO::simpleName = " + Dispatchers.PlatformIO::class.simpleName)
+            Text("context::simpleName = " + context::class.simpleName)
+            Text("ioDispatcher::simpleName = " + ioDispatcher::class.simpleName)
         }
     }
 }

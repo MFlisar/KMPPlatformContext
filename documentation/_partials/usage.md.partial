@@ -33,12 +33,7 @@ expect fun doSomething()
 
 actual fun doSomething() {
     // on android use this, on other platforms this is just a no-op
-    val platformContext = PlatformContext.current()
+    val platformContext = PlatformContext.get()
 }
-
-// also, if needed, you can always get the default context
-// on android: return null
-// all other platforms: return an empty context of type PlatformContextEmpty
-val context = PlatformContextProvider.getDefaultPlatformContext()
 
 ```

@@ -1,10 +1,8 @@
 import com.michaelflisar.kmpdevtools.Targets
 import com.michaelflisar.kmpdevtools.BuildFileUtil
 import com.michaelflisar.kmpdevtools.core.Platform
-import com.michaelflisar.kmpdevtools.configs.library.AndroidLibraryConfig
-import com.michaelflisar.kmpdevtools.configs.app.DesktopAppConfig
-import com.michaelflisar.kmpdevtools.configs.app.WasmAppConfig
-import com.michaelflisar.kmpdevtools.configs.module.AppModuleConfig
+import com.michaelflisar.kmpdevtools.configs.*
+import com.michaelflisar.kmpdevtools.setupDependencies
 
 plugins {
     // kmp + app/library
@@ -17,7 +15,7 @@ plugins {
     // docs, publishing, validation
     // --
     // build tools
-    alias(deps.plugins.kmpdevtools.buildplugin)
+    alias(mflisar.plugins.kmpdevtools.buildplugin)
     // others
     // ...
 }
@@ -89,8 +87,8 @@ kotlin {
 
         commonMain.dependencies {
 
-            // resources
-            api(compose.components.resources)
+            // Compose + AndroidX
+            api(libs.jetbrains.compose.components.resources)
 
             // Modules
             api(project(":demo:shared"))

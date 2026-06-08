@@ -8,7 +8,7 @@ object PlatformContextProvider {
         this.context = context
     }
 
-    fun get() : PlatformContext {
+    internal fun get() : PlatformContext {
         if (context == null) {
             context = getDefaultPlatformContext()
         }
@@ -18,4 +18,4 @@ object PlatformContextProvider {
 
 }
 
-expect fun PlatformContextProvider.getDefaultPlatformContext(): PlatformContext?
+internal expect fun PlatformContextProvider.getDefaultPlatformContext(): PlatformContext?

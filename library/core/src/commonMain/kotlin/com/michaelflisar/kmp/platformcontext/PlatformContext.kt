@@ -5,4 +5,10 @@ import kotlinx.coroutines.Dispatchers
 
 expect abstract class PlatformContext
 
-expect val Dispatchers.PlatformIO: CoroutineDispatcher
+internal expect val Dispatchers.PlatformIO: CoroutineDispatcher
+
+val platformContext: PlatformContext
+    get() = PlatformContextProvider.get()
+
+val platformIO: CoroutineDispatcher
+    get() = Dispatchers.PlatformIO

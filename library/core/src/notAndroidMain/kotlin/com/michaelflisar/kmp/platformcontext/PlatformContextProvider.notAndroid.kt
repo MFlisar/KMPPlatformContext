@@ -6,4 +6,4 @@ abstract class PlatformContextEmpty
 
 object PlatformContextEmptyImpl : PlatformContextEmpty()
 
-actual fun PlatformContextProvider.getDefaultPlatformContext(): PlatformContext? = PlatformContextEmptyImpl
+internal actual fun PlatformContextProvider.getDefaultPlatformContext(): PlatformContext? = PlatformContextEmptyImpl
