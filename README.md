@@ -1,4 +1,4 @@
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.mflisar.kmpplatformcontext/core?style=for-the-badge&color=blue)](https://central.sonatype.com/artifact/io.github.mflisar.kmpplatformcontext/core) ![API](https://img.shields.io/badge/api-23%2B-brightgreen.svg?style=for-the-badge) ![Kotlin](https://img.shields.io/github/languages/top/MFlisar/KMPPlatformContext.svg?style=for-the-badge&amp;color=blueviolet) ![Kotlin Multiplatform](https://img.shields.io/badge/Kotlin_Multiplatform-blue?style=for-the-badge&amp;label=Kotlin)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.mflisar.kmpplatformcontext/core?style=for-the-badge&color=blue)](https://central.sonatype.com/artifact/io.github.mflisar.kmpplatformcontext/core) ![API](https://img.shields.io/badge/api-24%2B-brightgreen.svg?style=for-the-badge) ![Kotlin](https://img.shields.io/github/languages/top/MFlisar/KMPPlatformContext.svg?style=for-the-badge&amp;color=blueviolet) ![Kotlin Multiplatform](https://img.shields.io/badge/Kotlin_Multiplatform-blue?style=for-the-badge&amp;label=Kotlin)
 # KMPPlatformContext
 ![Platforms](https://img.shields.io/badge/PLATFORMS-black?style=for-the-badge) ![Android](https://img.shields.io/badge/android-3DDC84?style=for-the-badge) ![iOS](https://img.shields.io/badge/ios-A2AAAD?style=for-the-badge) ![Windows](https://img.shields.io/badge/windows-5382A1?style=for-the-badge) ![macOS](https://img.shields.io/badge/macos-B0B0B0?style=for-the-badge) ![WebAssembly](https://img.shields.io/badge/wasm-624DE7?style=for-the-badge)
 
@@ -7,8 +7,9 @@ This library provides a multiplatform abstraction for platform-specific context 
 It provides the following main features:
 
 - a `PlatformContext` class that maps to `android.content.Context` on Android and to an empty implementation on all other platforms
-- a `PlatformContextProvider` that allows you to set and get the current `PlatformContext` instance
-- a `Dispatchers.PlatformIO` extension that will provide `Dispatchers.IO` on all platforms but WASM where it provides `Dispatchers.Default`
+- a `PlatformContextProvider` that allows you to set the current `PlatformContext` instance
+- a `val platformContext: PlatformContext` that provides easy access to the current `PlatformContext` instance
+- a `val platformIO: CoroutineDispatcher` that provides a platform-specific IO dispatcher (e.g., `Dispatchers.IO` on all platforms but wasm, `Dispatchers.Default` on wasm platforms)
 
 Additionally the `initializer` module allows you to initialize the `PlatformContext` on Android with the application context automatically via `androidx.startup.Initializer`.
 
@@ -24,17 +25,17 @@ Additionally the `initializer` module allows you to initialize the `PlatformCont
 
 # :computer: Supported Platforms
 
-| Module | android | iOS | windows | macOS | wasm |
-|---|---|---|---|---|---|
-| core | ✅ | ✅ | ✅ | ✅ | ✅ |
-| initializer | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Module | android | iOS | windows | macOS | wasm | Notes |
+|---|---|---|---|---|---|---|
+| core | ✅ | ✅ | ✅ | ✅ | ✅ | This is the core module that holds the android app context |
+| initializer | ✅ | ❌ | ❌ | ❌ | ❌ | Uses androidx.startup to automatically initialize the android context on app start |
 
 # :arrow_right: Versions
 
 | Dependency | Version |
 |---|---|
-| Kotlin | `2.3.20` |
-| Jetbrains Compose | `1.9.3` |
+| Kotlin | `2.4.0` |
+| Jetbrains Compose | `1.11.1` |
 | Jetbrains Compose Material3 | `1.9.0` |
 
 # :wrench: Setup
@@ -124,13 +125,8 @@ expect fun doSomething()
 
 actual fun doSomething() {
     // on android use this, on other platforms this is just a no-op
-    val platformContext = PlatformContext.current()
+    val platformContext = PlatformContext.get()
 }
-
-// also, if needed, you can always get the default context
-// on android: return null
-// all other platforms: return an empty context of type PlatformContextEmpty
-val context = PlatformContextProvider.getDefaultPlatformContext()
 
 ```
 
