@@ -13,6 +13,8 @@ It provides the following main features:
 
 Additionally the `initializer` module allows you to initialize the `PlatformContext` on Android with the application context automatically via `androidx.startup.Initializer`.
 
+Simply add the initializer module to your android app and the `PlatformContext` will be initialized with the application context automatically.
+
 # Table of Contents
 
 - [Supported Platforms](#computer-supported-platforms)
