@@ -8,10 +8,10 @@ It provides the following main features:
 
 - a `PlatformContext` class that maps to `android.content.Context` on Android and to an empty implementation on all other platforms
 - a `PlatformContextProvider` that allows you to set the current `PlatformContext` instance via `PlatformContextProvider.init(context: PlatformContext)`
-- a `val ApplicationContext: PlatformContext` that provides easy access to the current `PlatformContext` instance
+- a `val PlatformApplicationContext: PlatformContext` that provides easy access to the current `PlatformContext` instance
 - a `val platformIO: CoroutineDispatcher` that provides a platform-specific IO dispatcher (e.g., `Dispatchers.IO` on all platforms but wasm, `Dispatchers.Default` on wasm platforms)
 
-Additionally, the `initializer` module allows you to initialize the `PlatformContext` on Android with the application context automatically via `androidx.startup.Initializer`.
+Additionally the `initializer` module allows you to initialize the `PlatformContext` on Android with the application context automatically via `androidx.startup.Initializer`.
 
 Simply add the initializer module to your android app and the `PlatformContext` will be initialized with the application context automatically.
 
@@ -119,7 +119,7 @@ import com.michaelflisar.kmp.platformcontext.platformContext
 import kotlinx.coroutines.Dispatchers
 
 // usage
-val context = platformContext // application context on android, empty context instance on all other platforms
+val context = ApplicationContext // application context on android, empty context instance on all other platforms
 val ioContext = Dispatchers.PlatformIO // Dispatchers.IO on all platforms but WASM where it provides Dispatchers.Default
 
 // or use the PlatformContext class for functions (no need for the widely used doSomething(context: Any?) pattern)
