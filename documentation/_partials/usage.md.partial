@@ -25,7 +25,7 @@ import com.michaelflisar.kmp.platformcontext.platformContext
 import kotlinx.coroutines.Dispatchers
 
 // usage
-val context = platformContext // application context on android, empty context instance on all other platforms
+val context = ApplicationContext // application context on android, empty context instance on all other platforms
 val ioContext = Dispatchers.PlatformIO // Dispatchers.IO on all platforms but WASM where it provides Dispatchers.Default
 
 // or use the PlatformContext class for functions (no need for the widely used doSomething(context: Any?) pattern)

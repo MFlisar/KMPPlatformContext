@@ -21,7 +21,7 @@ import com.michaelflisar.democomposables.layout.DemoColumn
 import com.michaelflisar.democomposables.layout.DemoRegion
 import com.michaelflisar.democomposables.layout.rememberDemoExpandedRegions
 import com.michaelflisar.kmp.platformcontext.PlatformIO
-import com.michaelflisar.kmp.platformcontext.platformContext
+import com.michaelflisar.kmp.platformcontext.PlatformApplicationContext
 import com.michaelflisar.kmpplatformcontext.demo.BuildKonfig
 import kotlinx.coroutines.Dispatchers
 
@@ -65,7 +65,7 @@ private fun DemoContent(
     val scope = rememberCoroutineScope()
     val regionState = rememberDemoExpandedRegions(ids = listOf(1, 2))
 
-    val context = platformContext
+    val context = PlatformApplicationContext
     val ioDispatcher = Dispatchers.PlatformIO
 
     DemoColumn(

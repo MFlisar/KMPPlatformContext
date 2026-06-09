@@ -7,6 +7,10 @@ expect abstract class PlatformContext
 
 expect val Dispatchers.PlatformIO: CoroutineDispatcher
 
+val PlatformApplicationContext: PlatformContext
+    get() = PlatformContextProvider.get()
+
+@Deprecated("Use ApplicationContext instead", ReplaceWith("ApplicationContext"))
 val platformContext: PlatformContext
     get() = PlatformContextProvider.get()
 
